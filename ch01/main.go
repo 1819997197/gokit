@@ -93,7 +93,11 @@ func main() {
 	r := mux.NewRouter()
 	r.Methods("POST").Path("/uppercase").Handler(uppercaseHandler)
 	r.Methods("GET").Path("/count/{name}").Handler(countHandler)
-	log.Fatal(http.ListenAndServe(":50050", r))
+	log.Println("listen:50050")
+	err := http.ListenAndServe(":50050", r)
+	if err != nil {
+		log.Fatal("http.ListenAndServe err: ", err)
+	}
 }
 
 func decodeUppercaseRequest(_ context.Context, r *http.Request) (interface{}, error) {
